@@ -5,7 +5,6 @@
   align-items: center;
   gap: 2em;
   margin: 0 auto;
-  width: 20em;
   list-style-type: none;
 }
 
@@ -14,7 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 9.5em;
+  min-width: 10em;
   padding: 1em 1.5em;
   font-weight: 600;
   text-transform: uppercase;

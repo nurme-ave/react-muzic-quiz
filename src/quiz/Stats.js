@@ -5,7 +5,7 @@ function Stats() {
     <ul className="stats">
       <li className="stat">
         <div>Score</div>
-        <div>5</div>
+        <div>3</div>
       </li>
       <li className="stat">
         <div>Question</div>
