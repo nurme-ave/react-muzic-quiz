@@ -1,4 +1,4 @@
-import '../quiz/Trivia.css';
+import './Trivia.css';
 import Stats from './Stats';
 
 function Trivia({ triviaData }) {
