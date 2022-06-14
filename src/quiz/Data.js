@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-// import Quiz from './Quiz';
+import Quiz from './Quiz';
 
 function Data() {
   const url = 'https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple';
@@ -23,11 +23,9 @@ function Data() {
 
   console.log(quizData)
 
-
-
   return (
     <>
-      {/* {results} */}
+      <Quiz triviaData={quizData} />
     </>
   )
 }
