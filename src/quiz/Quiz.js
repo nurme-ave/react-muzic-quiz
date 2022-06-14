@@ -62,7 +62,11 @@ function Quiz() {
 
   return (
     <>
-      {errorMessage !== '' ? <ErrorMessage>{errorMessage}</ErrorMessage> : <Trivia triviaData={data} />}
+      {errorMessage !== '' ? (
+        <ErrorMessage>{errorMessage}</ErrorMessage>
+      ) : (
+        <Trivia triviaData={data} />
+      )}
     </>
   );
 }
