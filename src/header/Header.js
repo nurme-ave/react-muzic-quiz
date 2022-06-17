@@ -1,7 +1,16 @@
+import { motion } from 'framer-motion';
 import '../header/Header.css';
 
 function Header() {
-  return <header className="header"><h1>Muzic Quiz</h1></header>;
+  return (
+    <motion.header
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5, duration: 1 }}
+    >
+      <h1 className="header">Muzic Quiz</h1>
+    </motion.header>
+  );
 }
 
 export default Header;
