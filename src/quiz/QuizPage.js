@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { nanoid } from 'nanoid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
@@ -7,6 +8,7 @@ import he from 'he';
 import '../quiz/QuizPage.css';
 
 function QuizPage() {
+  const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
   const [userSelections, setUserSelections] = useState({
@@ -50,7 +52,7 @@ function QuizPage() {
 
   useEffect(() => {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
-    
+
     if (numOfQuestions !== 0 && difficultyLevel !== '') {
       fetch(url)
         .then((response) => {
@@ -86,6 +88,7 @@ function QuizPage() {
             return shuffledArray;
           }
           setQuizData(decodedResults);
+          setIsData(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -152,16 +155,23 @@ function QuizPage() {
         </ul>
       </div>
 
-      {
-        <div className="trivia-card-container">
-          <p className="trivia-card-question">Question</p>
-          <ul className="trivia-card-answers">
-            <li>
-              <button className="trivia-card-button">Answer</button>
-            </li>
-          </ul>
-        </div>
-      }
+      {isData &&
+        quizData.map((item) => {
+          return (
+            <div className="trivia-card-container" key={nanoid()}>
+              <p className="trivia-card-question">{item.question}</p>
+              <ul className="trivia-card-answers">
+                {item.allAnswers.map((answer) => {
+                  return (
+                    <li key={nanoid()}>
+                      <button className="trivia-card-button" >{he.decode(answer)}</button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
       <button className="trivia-card-next-button">
         Next
         <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />

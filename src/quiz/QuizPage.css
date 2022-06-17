@@ -105,7 +105,7 @@ select {
   justify-content: center;
   align-items: center;
   gap: 1em;
-  width: 100%;
+  width: 75%;
 }
 
 .trivia-card-question {
