@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
@@ -14,19 +14,27 @@ function QuizPage() {
     selectionQuestions: 0,
   });
 
-  console.log(difficultyLevel)
-  console.log(numOfQuestions)
-  console.log(userSelections)
+  console.log(difficultyLevel);
+  console.log(numOfQuestions);
+  console.log(userSelections);
 
-  const arrDifficultyLevels = ['Easy', 'Medium', 'Hard']
+  const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
-    return <option key={level.toLowerCase()} value={level.toLowerCase()}>{level}</option>
-  })
+    return (
+      <option key={level.toLowerCase()} value={level.toLowerCase()}>
+        {level}
+      </option>
+    );
+  });
 
-  const arrNumOfQuestions = ['5', '10', '15']
+  const arrNumOfQuestions = ['5', '10', '15'];
   const optionNumOfQuestions = arrNumOfQuestions.map((num) => {
-    return <option key={num} value={+num}>{num}</option>
-  })
+    return (
+      <option key={num} value={+num}>
+        {num}
+      </option>
+    );
+  });
 
   function getUserSelections(e) {
     e.preventDefault();
@@ -35,6 +43,24 @@ function QuizPage() {
       selectionQuestions: +numOfQuestions,
     });
   }
+
+  useEffect(() => {
+    const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
+    console.log(url);
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(
+            `This is an HTTP error: The status is ${response.status}`
+          );
+        }
+        return response.json();
+      })
+      .then((resultsData) => console.log(resultsData.results))
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, [numOfQuestions, difficultyLevel]);
 
   return (
     <motion.section
@@ -47,7 +73,7 @@ function QuizPage() {
       <p>Make your pick below and start the quiz.</p>
       <p>
         Good luck!
-        <FontAwesomeIcon icon={ faMusic } className="fa-icon" />
+        <FontAwesomeIcon icon={faMusic} className="fa-icon" />
       </p>
 
       <motion.form
@@ -79,9 +105,7 @@ function QuizPage() {
             {optionNumOfQuestions}
           </select>
         </div>
-        <button className="start-quiz-button">
-          Start!
-        </button>
+        <button className="start-quiz-button">Start!</button>
       </motion.form>
     </motion.section>
   );
