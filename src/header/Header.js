@@ -1,8 +1,7 @@
-import React from 'react';
 import '../header/Header.css';
 
 function Header() {
-  return <header className='header'>Muzic Quiz</header>;
+  return <header className="header"><h1>Muzic Quiz</h1></header>;
 }
 
 export default Header;
