@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-import he from "he";
+import he from 'he';
 
 import '../quiz/QuizPage.css';
 
@@ -14,13 +14,13 @@ function QuizPage() {
     selectionQuestions: 0,
   });
   const [quizData, setQuizData] = useState({
-    question: "",
+    question: '',
     incorrectAnswers: [],
-    correctAnswer: "",
+    correctAnswer: '',
     allAnswers: [],
-  })
+  });
 
-  console.log(quizData)
+  console.log(quizData);
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -50,40 +50,47 @@ function QuizPage() {
 
   useEffect(() => {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
-          );
-        }
-        return response.json();
-      })
-      .then((data) => {
-        const decodedResults = data.results.map((item) => {
-          return {
-            question: he.decode(item.question),
-            correctAnswer: he.decode(item.correct_answer),
-            incorrectAnswers: item.incorrect_answers.map((incorrect) =>
-              he.decode(incorrect)),
-            allAnswers: shuffle([...item.incorrect_answers, item.correct_answer]),
-          };
-        });
-        function shuffle(array) {
-          const shuffledArray = [...array];
-          for (let i = shuffledArray.length - 1; i > 0; i--) {
-            const swapIndex = Math.floor(Math.random() * (i + 1));
-            const temp = shuffledArray[i];
-            shuffledArray[i] = shuffledArray[swapIndex];
-            shuffledArray[swapIndex] = temp;
+    
+    if (numOfQuestions !== 0 && difficultyLevel !== '') {
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `This is an HTTP error: The status is ${response.status}`
+            );
           }
-          return shuffledArray;
-        }
-        setQuizData(decodedResults);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      });
+          return response.json();
+        })
+        .then((data) => {
+          const decodedResults = data.results.map((item) => {
+            return {
+              question: he.decode(item.question),
+              correctAnswer: he.decode(item.correct_answer),
+              incorrectAnswers: item.incorrect_answers.map((incorrect) =>
+                he.decode(incorrect)
+              ),
+              allAnswers: shuffle([
+                ...item.incorrect_answers,
+                item.correct_answer,
+              ]),
+            };
+          });
+          function shuffle(array) {
+            const shuffledArray = [...array];
+            for (let i = shuffledArray.length - 1; i > 0; i--) {
+              const swapIndex = Math.floor(Math.random() * (i + 1));
+              const temp = shuffledArray[i];
+              shuffledArray[i] = shuffledArray[swapIndex];
+              shuffledArray[swapIndex] = temp;
+            }
+            return shuffledArray;
+          }
+          setQuizData(decodedResults);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
   }, [difficultyLevel, numOfQuestions]);
 
   return (
@@ -140,23 +147,25 @@ function QuizPage() {
           </li>
           <li className="stat">
             <div>Question</div>
-            <div>1 / 5</div>
+            <div>1 / {quizData.length}</div>
           </li>
         </ul>
       </div>
 
-      <div className="trivia-card-container">
-        <p className="trivia-card-question">Question</p>
-        <ul className="trivia-card-answers">
-          <li>
-            <button className="trivia-card-button">Answer</button>
-          </li>
-        </ul>
-        <button className="trivia-card-next-button">
-          Next
-          <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
-        </button>
-      </div>
+      {
+        <div className="trivia-card-container">
+          <p className="trivia-card-question">Question</p>
+          <ul className="trivia-card-answers">
+            <li>
+              <button className="trivia-card-button">Answer</button>
+            </li>
+          </ul>
+        </div>
+      }
+      <button className="trivia-card-next-button">
+        Next
+        <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+      </button>
     </motion.section>
   );
 }
