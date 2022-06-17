@@ -27,6 +27,7 @@
   width: 100%;
   color: #fff;
   border-top: 2px solid #D1468D;
+  border-bottom: 2px solid #D1468D;
 }
 
 .select-container {
@@ -70,4 +71,120 @@ select {
 .start-quiz-button:hover {
   color: #fff;
   background-color: #D1468D;
+}
+
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  margin: 0 auto;
+  padding: 2em 0;
+  list-style-type: none;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10em;
+  padding: 1em 1.5em;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid lightslategray;
+  border-radius: 0.5rem;
+  color: #D6DBF5;
+  background-color: #D1468D;
+}
+
+.trivia-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  width: 100%;
+}
+
+.trivia-card-question {
+  padding: 1em 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+}
+
+.trivia-card-answers {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 10em;
+  gap: 1em;
+  list-style: none;
+}
+
+.trivia-card-button {
+  width: 21em;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  padding: 1em 1.5em;
+  border: 1px solid #fff;
+  border-radius: .5em;
+  background-color: #fff;
+}
+
+.trivia-card-button:hover {
+  background-color: #D6DBF5;
+  cursor: pointer;
+}
+
+.trivia-card-next-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1em 1.5em;
+  border-radius: .5em;
+  background-color: #fff;
+  width: 10em;
+  margin-top: 1em;
+  border: 1px solid #0620a4;
+  cursor: pointer;
+}
+
+.trivia-card-button:hover {
+  border: 1px solid #fff;
+  color: #fff;
+  background-color: #020229;
+  background-color: #1B073F;
+  background-color: #631DB0;
+}
+
+.trivia-card-button-disabled {
+  border: 1px solid #000;
+  background: #c3c3d8;
+  cursor: auto;
+}
+
+.trivia-card-button-disabled:hover {
+  border: 1px solid darkgrey;
+  background: #c3c3d8;
+  cursor: auto;
+}
+
+.trivia-card-button.trivia-card-button-correct {
+  color: #fff;
+  background: #27bd26;
+}
+
+.trivia-card-button.trivia-card-button-incorrect {
+  color: #fff;
+  background: #c02626;
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
+import { faMusic, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 // import he from "he";
 
 import '../quiz/QuizPage.css';
@@ -60,7 +60,7 @@ function QuizPage() {
       .catch((err) => {
         console.log(err.message);
       });
-  }, [numOfQuestions, difficultyLevel]);
+  }, [difficultyLevel, numOfQuestions]);
 
   return (
     <motion.section
@@ -107,6 +107,32 @@ function QuizPage() {
         </div>
         <button className="start-quiz-button">Start!</button>
       </motion.form>
+
+      <div>
+        <ul className="stats">
+          <li className="stat">
+            <div>Score</div>
+            <div>10</div>
+          </li>
+          <li className="stat">
+            <div>Question</div>
+            <div>1 / 5</div>
+          </li>
+        </ul>
+      </div>
+
+      <div className="trivia-card-container">
+        <p className="trivia-card-question">Question</p>
+        <ul className="trivia-card-answers">
+          <li>
+            <button className="trivia-card-button">Answer</button>
+          </li>
+        </ul>
+        <button className="trivia-card-next-button">
+          Next
+          <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+        </button>
+      </div>
     </motion.section>
   );
 }
