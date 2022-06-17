@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faArrowRight } from '@fortawesome/free-solid-svg-icons';
@@ -31,6 +31,7 @@ function QuizPage() {
   const questionNumber = questionIndex + 1;
 
   console.log(quizData);
+  console.log(isGameOver);
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -60,13 +61,31 @@ function QuizPage() {
 
   function loadNextQuestion() {
     if (questionIndex >= quizData.length - 1) {
-      setGameState({...gameState, isGameOver: true});
+      setGameState({ ...gameState, isGameOver: true });
     } else {
       setGameState({
         ...gameState,
         questionIndex: questionIndex + 1,
       });
     }
+  }
+
+  function restartGame() {
+    setGameState({
+      score: 0,
+      questionIndex: 0,
+      isGameOver: false,
+    });
+    setIsData(false);
+    setDifficultyLevel('');
+    console.log(quizData);
+    setNumOfQuestions(0);
+    setQuizData({
+      question: '',
+      incorrectAnswers: [],
+      correctAnswer: '',
+      allAnswers: [],
+    });
   }
 
   useEffect(() => {
@@ -169,36 +188,54 @@ function QuizPage() {
           </li>
           <li className="stat">
             <div>Question</div>
-            <div>{questionNumber} / {quizData.length}</div>
+            <div>
+              {questionNumber} / {quizData.length}
+            </div>
           </li>
         </ul>
       </div>
 
-      {isData &&
-        // quizData.map((item) => {
-          // return (
-            <div className="trivia-card-container" key={nanoid()}>
-              <p className="trivia-card-question">{quizData[questionIndex].question}</p>
-              <ul className="trivia-card-answers">
-                {/* <li key={nanoid()}>
-                  <button className="trivia-card-button" >answer</button>
-                </li> */}
-                {quizData[questionIndex].allAnswers.map((answer) => {
-                  return (
-                    <li key={nanoid()}>
-                      <button className="trivia-card-button" >{he.decode(answer)}</button>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          // );
-        // })
-        }
-      <button className="trivia-card-next-button" onClick={loadNextQuestion}>
-        Next
-        <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
-      </button>
+      {isData && !isGameOver ? (
+        <AnimatePresence exitBeforeEnter={true}>
+          <motion.div
+            className="trivia-card-container"
+            key={nanoid()}
+            initial={{ opacity: 0, x: -300, transition: { ease: 'easeOut' } }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 300 }}
+            transition={{ duration: 1 }}
+          >
+            <p className="trivia-card-question">
+              {quizData[questionIndex].question}
+            </p>
+            <ul className="trivia-card-answers">
+              {quizData[questionIndex].allAnswers.map((answer) => {
+                return (
+                  <li key={nanoid()}>
+                    <button className="trivia-card-button">
+                      {he.decode(answer)}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+            <button
+              className="trivia-card-next-button"
+              onClick={loadNextQuestion}
+            >
+              Next
+              <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+            </button>
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <div>
+          <p>Game Over</p>
+          <button className="trivia-card-next-button" onClick={restartGame}>
+            Play again?
+          </button>
+        </div>
+      )}
     </motion.section>
   );
 }
