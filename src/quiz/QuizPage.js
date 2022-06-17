@@ -1,20 +1,25 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
+
 // import he from "he";
 import '../quiz/QuizPage.css';
 
 function QuizPage() {
-  const [quizDifficulty, setQuizDifficulty] = useState('');
+  const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
   const [userSelections, setUserSelections] = useState({
     difficulty: '',
     numOfQuestions: 0,
   });
 
-  function getUserSelections() {
-    return
-  }
+  console.log(difficultyLevel)
+  console.log(numOfQuestions)
 
+  function getUserSelections() {
+    return;
+  }
 
   return (
     <motion.section
@@ -25,7 +30,10 @@ function QuizPage() {
     >
       <h2>Welcome!</h2>
       <p>Make your pick below and start the quiz.</p>
-      <p>Good luck!</p>
+      <p>
+        Good luck!
+        <FontAwesomeIcon icon={ faMusic } className="fa-icon" />
+      </p>
 
       <motion.form
         className="form-container"
@@ -36,9 +44,9 @@ function QuizPage() {
         <div className="select-container">
           <label htmlFor="difficulty">Difficulty level:</label>
           <select
-            value={quizDifficulty}
+            value={difficultyLevel}
             id="difficulty"
-            onChange={(e) => setQuizDifficulty(e.target.value)}
+            onChange={(e) => setDifficultyLevel(e.target.value)}
           >
             <option value="">-- Select --</option>
             <option value="Easy">Easy</option>
@@ -59,10 +67,10 @@ function QuizPage() {
             <option value="15">15</option>
           </select>
         </div>
+        <button onClick={getUserSelections} className="start-quiz-button">
+          Start!
+        </button>
       </motion.form>
-      <button onClick={getUserSelections} className="start-quiz-button">
-        Start!
-      </button>
     </motion.section>
   );
 }
