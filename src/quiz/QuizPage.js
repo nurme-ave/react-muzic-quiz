@@ -23,12 +23,12 @@ function QuizPage() {
   });
   const [gameState, setGameState] = useState({
     score: 0,
-    triviaIndex: 0,
+    questionIndex: 0,
     isGameOver: false,
   });
 
-  const { score, triviaIndex, isGameOver } = gameState;
-  const questionNumber = triviaIndex + 1;
+  const { score, questionIndex, isGameOver } = gameState;
+  const questionNumber = questionIndex + 1;
 
   console.log(quizData);
 
@@ -56,6 +56,17 @@ function QuizPage() {
       selectionDifficulty: difficultyLevel,
       selectionQuestions: +numOfQuestions,
     });
+  }
+
+  function loadNextQuestion() {
+    if (questionIndex >= quizData.length - 1) {
+      setGameState({...gameState, isGameOver: true});
+    } else {
+      setGameState({
+        ...gameState,
+        questionIndex: questionIndex + 1,
+      });
+    }
   }
 
   useEffect(() => {
@@ -164,12 +175,15 @@ function QuizPage() {
       </div>
 
       {isData &&
-        quizData.map((item) => {
-          return (
+        // quizData.map((item) => {
+          // return (
             <div className="trivia-card-container" key={nanoid()}>
-              <p className="trivia-card-question">{item.question}</p>
+              <p className="trivia-card-question">{quizData[questionIndex].question}</p>
               <ul className="trivia-card-answers">
-                {item.allAnswers.map((answer) => {
+                {/* <li key={nanoid()}>
+                  <button className="trivia-card-button" >answer</button>
+                </li> */}
+                {quizData[questionIndex].allAnswers.map((answer) => {
                   return (
                     <li key={nanoid()}>
                       <button className="trivia-card-button" >{he.decode(answer)}</button>
@@ -178,9 +192,10 @@ function QuizPage() {
                 })}
               </ul>
             </div>
-          );
-        })}
-      <button className="trivia-card-next-button">
+          // );
+        // })
+        }
+      <button className="trivia-card-next-button" onClick={loadNextQuestion}>
         Next
         <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
       </button>
