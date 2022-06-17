@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic, faArrowRight } from '@fortawesome/free-solid-svg-icons';
-// import he from "he";
+import he from "he";
 
 import '../quiz/QuizPage.css';
 
@@ -13,10 +13,14 @@ function QuizPage() {
     selectionDifficulty: '',
     selectionQuestions: 0,
   });
+  const [quizData, setQuizData] = useState({
+    question: "",
+    incorrectAnswers: [],
+    correctAnswer: "",
+    allAnswers: [],
+  })
 
-  console.log(difficultyLevel);
-  console.log(numOfQuestions);
-  console.log(userSelections);
+  console.log(quizData)
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -46,7 +50,6 @@ function QuizPage() {
 
   useEffect(() => {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
-    console.log(url);
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -56,7 +59,28 @@ function QuizPage() {
         }
         return response.json();
       })
-      .then((resultsData) => console.log(resultsData.results))
+      .then((data) => {
+        const decodedResults = data.results.map((item) => {
+          return {
+            question: he.decode(item.question),
+            correctAnswer: he.decode(item.correct_answer),
+            incorrectAnswers: item.incorrect_answers.map((incorrect) =>
+              he.decode(incorrect)),
+            allAnswers: shuffle([...item.incorrect_answers, item.correct_answer]),
+          };
+        });
+        function shuffle(array) {
+          const shuffledArray = [...array];
+          for (let i = shuffledArray.length - 1; i > 0; i--) {
+            const swapIndex = Math.floor(Math.random() * (i + 1));
+            const temp = shuffledArray[i];
+            shuffledArray[i] = shuffledArray[swapIndex];
+            shuffledArray[swapIndex] = temp;
+          }
+          return shuffledArray;
+        }
+        setQuizData(decodedResults);
+      })
       .catch((err) => {
         console.log(err.message);
       });
