@@ -21,6 +21,14 @@ function QuizPage() {
     correctAnswer: '',
     allAnswers: [],
   });
+  const [gameState, setGameState] = useState({
+    score: 0,
+    triviaIndex: 0,
+    isGameOver: false,
+  });
+
+  const { score, triviaIndex, isGameOver } = gameState;
+  const questionNumber = triviaIndex + 1;
 
   console.log(quizData);
 
@@ -150,7 +158,7 @@ function QuizPage() {
           </li>
           <li className="stat">
             <div>Question</div>
-            <div>1 / {quizData.length}</div>
+            <div>{questionNumber} / {quizData.length}</div>
           </li>
         </ul>
       </div>
