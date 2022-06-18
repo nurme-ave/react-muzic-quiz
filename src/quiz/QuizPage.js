@@ -1,4 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { QuizContext } from './Contexts';
+
+
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,8 +14,15 @@ import {
 import he from 'he';
 
 import '../quiz/QuizPage.css';
+import TriviaCard from './TriviaCard';
+import EndScreen from './EndScreen';
+
 
 function QuizPage() {
+  const { isGameOver, setIsGameOver } = useContext(QuizContext)
+  // const { score, setScore } = useContext(QuizContext)
+  const { questionIndex, setQuestionIndex } = useContext(QuizContext)
+
   const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
@@ -25,13 +36,10 @@ function QuizPage() {
     correctAnswer: '',
     allAnswers: [],
   });
-  const [gameState, setGameState] = useState({
-    score: 0,
-    questionIndex: 0,
-    isGameOver: false,
-  });
+  // const [gameState, setGameState] = useState({
+  //   score: 0,
+  // });
 
-  const { score, questionIndex, isGameOver } = gameState;
   const questionNumber = questionIndex + 1;
 
   console.log(quizData);
@@ -63,26 +71,22 @@ function QuizPage() {
     });
   }
 
-  function loadNextQuestion() {
-    if (questionIndex >= quizData.length - 1) {
-      setGameState({ ...gameState, isGameOver: true });
-    } else {
-      setGameState({
-        ...gameState,
-        questionIndex: questionIndex + 1,
-      });
-    }
-  }
+  // function loadNextQuestion() {
+  //   if (questionIndex >= quizData.length - 1) {
+  //     setGameState({ ...gameState, isGameOver: true });
+  //   } else {
+  //     setGameState({
+  //       ...gameState,
+  //       questionIndex: questionIndex + 1,
+  //     });
+  //   }
+  // }
 
   function restartGame() {
-    setGameState({
-      score: 0,
-      questionIndex: 0,
-      isGameOver: false,
-    });
+    setIsGameOver(false);
+    setQuestionIndex(0);
     setIsData(false);
     setDifficultyLevel('');
-    console.log(quizData);
     setNumOfQuestions(0);
     setQuizData({
       question: '',
@@ -152,13 +156,13 @@ function QuizPage() {
         <FontAwesomeIcon icon={faMusic} className="fa-icon" />
       </p>
 
-      <motion.form
+      { !isGameOver && <motion.form
         className="form-container"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
         onSubmit={getUserSelections}
-      >
+      > 
         <div className="select-container">
           <label htmlFor="difficulty">Difficulty level:</label>
           <select
@@ -182,71 +186,29 @@ function QuizPage() {
           </select>
         </div>
         <button className="start-quiz-button">Start!</button>
-      </motion.form>
+      </motion.form>}
 
-      <div>
-        <ul className="stats">
-          <li className="stat">
-            <div>Score</div>
-            <div>10</div>
-          </li>
-          <li className="stat">
-            <div>Question</div>
-            <div>
-              {questionNumber} / {quizData.length}
-            </div>
-          </li>
-        </ul>
-      </div>
 
       {isData && !isGameOver ? (
-        <AnimatePresence exitBeforeEnter={true}>
-          <motion.div
-            className="trivia-card-container"
-            key={nanoid()}
-            initial={{ opacity: 0, x: -300, transition: { ease: 'easeOut' } }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 300 }}
-            transition={{ duration: 1 }}
-          >
-            <p className="trivia-card-question">
-              {quizData[questionIndex].question}
-            </p>
-            <ul className="trivia-card-answers">
-              {quizData[questionIndex].allAnswers.map((answer) => {
-                return (
-                  <li key={nanoid()}>
-                    <button className="trivia-card-button">
-                      {he.decode(answer)}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-            <button
-              className="trivia-card-next-button"
-              onClick={loadNextQuestion}
-            >
-              Next
-              <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
-            </button>
-          </motion.div>
-        </AnimatePresence>
-      ) : (
-        <div className="final-results">
-          <h1>Quiz complete!</h1>
-          <h2>
-            Congrats!
-            <FontAwesomeIcon icon={faMedal} className="fa-icon" />
-          </h2>
-          <div className="end-screen-stats">
-            <div className="end-screen-stat-label">Final score</div>
-            <div className="end-screen-stat-value">10</div>
-          </div>
-          <button className="trivia-card-next-button" onClick={restartGame}>
-            Play again?
-          </button>
+      <div>
+        <div>
+          <ul className="stats">
+            <li className="stat">
+              <div>Score</div>
+              <div>10</div>
+            </li>
+            <li className="stat">
+              <div>Question</div>
+              <div>
+                {questionNumber} / {quizData.length}
+              </div>
+            </li>
+          </ul>
         </div>
+          <TriviaCard quizData={quizData}/>
+      </div>
+      ) : (
+        <EndScreen onRetryClick={restartGame}/>
       )}
     </motion.section>
   );
