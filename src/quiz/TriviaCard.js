@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,18 +7,8 @@ import he from 'he';
 import { QuizContext } from './Contexts';
 
 
-function TriviaCard({ quizData }) {
-  const { isGameOver, setIsGameOver } = useContext(QuizContext)
-  const { questionIndex, setQuestionIndex } = useContext(QuizContext)
-
-  function loadNextQuestion() {
-    if (questionIndex >= quizData.length - 1) {
-      setIsGameOver(true)
-    } else {
-      setQuestionIndex(questionIndex + 1);
-    }
-  }
-
+function TriviaCard({ quizData, onloadNextClick }) {
+  const { questionIndex } = useContext(QuizContext)
 
   return (
     <AnimatePresence exitBeforeEnter={true}>
@@ -46,7 +36,7 @@ function TriviaCard({ quizData }) {
             </ul>
             <button
               className="trivia-card-next-button"
-              onClick={loadNextQuestion}
+              onClick={onloadNextClick}
             >
               Next
               <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />

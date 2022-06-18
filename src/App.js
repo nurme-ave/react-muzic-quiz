@@ -7,17 +7,14 @@ import { useState } from 'react';
 
 
 function App() {
-  const [isGameOver, setIsGameOver] = useState(false);
   // const [score, setScore] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0)
-
 
   return (
     <main className="main-container">
       <Header />
-      <QuizContext.Provider value={{ isGameOver, setIsGameOver, questionIndex, setQuestionIndex }}>
+      <QuizContext.Provider value={{ questionIndex, setQuestionIndex }}>
         <QuizPage />
-        
       </QuizContext.Provider>
       <Footer />
     </main>

@@ -1,16 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
 import { QuizContext } from './Contexts';
-
-
-
-import { motion, AnimatePresence } from 'framer-motion';
-import { nanoid } from 'nanoid';
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faMusic,
-  faArrowRight,
-  faMedal,
-} from '@fortawesome/free-solid-svg-icons';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
 
 import '../quiz/QuizPage.css';
@@ -19,7 +11,8 @@ import EndScreen from './EndScreen';
 
 
 function QuizPage() {
-  const { isGameOver, setIsGameOver } = useContext(QuizContext)
+  const [isGameOver, setIsGameOver] = useState(false);
+
   // const { score, setScore } = useContext(QuizContext)
   const { questionIndex, setQuestionIndex } = useContext(QuizContext)
 
@@ -39,11 +32,18 @@ function QuizPage() {
   // const [gameState, setGameState] = useState({
   //   score: 0,
   // });
+  const [showIntro, setShowIntro] = useState(true);
+  const [showGame, setShowGame] = useState(false);
 
   const questionNumber = questionIndex + 1;
 
   console.log(quizData);
-  console.log(isGameOver);
+  console.log("isgameover", isGameOver);
+  console.log("questionindex", questionIndex);
+  console.log("isdata", isData);
+  console.log("difflevel", difficultyLevel);
+  console.log("numofquestions", numOfQuestions);
+
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -69,20 +69,16 @@ function QuizPage() {
       selectionDifficulty: difficultyLevel,
       selectionQuestions: +numOfQuestions,
     });
+    setShowIntro(false);
+    setShowGame(true);
   }
 
-  // function loadNextQuestion() {
-  //   if (questionIndex >= quizData.length - 1) {
-  //     setGameState({ ...gameState, isGameOver: true });
-  //   } else {
-  //     setGameState({
-  //       ...gameState,
-  //       questionIndex: questionIndex + 1,
-  //     });
-  //   }
+  // function startTheGame() {
+  //   setShowIntro(false);
   // }
 
   function restartGame() {
+    setShowIntro(true);
     setIsGameOver(false);
     setQuestionIndex(0);
     setIsData(false);
@@ -94,6 +90,15 @@ function QuizPage() {
       correctAnswer: '',
       allAnswers: [],
     });
+  }
+
+  function loadNextQuestion() {
+    if (questionIndex >= quizData.length - 1) {
+      setIsGameOver(true)
+      setShowGame(false);
+    } else {
+      setQuestionIndex(questionIndex + 1);
+    }
   }
 
   useEffect(() => {
@@ -149,14 +154,17 @@ function QuizPage() {
       animate={{ opacity: 1 }}
       transition={{ delay: 1, duration: 1 }}
     >
-      <h2>Welcome!</h2>
-      <p>Make your pick below and start the quiz.</p>
-      <p>
-        Good luck!
-        <FontAwesomeIcon icon={faMusic} className="fa-icon" />
-      </p>
+      {showIntro && 
+      <div>
+        <h2>Welcome!</h2>
+        <p>Make your pick below and start the quiz.</p>
+        <p>
+          Good luck!
+          <FontAwesomeIcon icon={faMusic} className="fa-icon" />
+        </p>
+      </div>}
 
-      { !isGameOver && <motion.form
+      { !isGameOver && showIntro && <motion.form
         className="form-container"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -189,7 +197,7 @@ function QuizPage() {
       </motion.form>}
 
 
-      {isData && !isGameOver ? (
+      { showGame  ? (
       <div>
         <div>
           <ul className="stats">
@@ -205,11 +213,35 @@ function QuizPage() {
             </li>
           </ul>
         </div>
-          <TriviaCard quizData={quizData}/>
+          <TriviaCard quizData={quizData} onloadNextClick={loadNextQuestion} />
       </div>
       ) : (
-        <EndScreen onRetryClick={restartGame}/>
+        <EndScreen onRestartClick={restartGame}/>
       )}
+      {/* {isData && !isGameOver ? (
+      <div>
+        <div>
+          <ul className="stats">
+            <li className="stat">
+              <div>Score</div>
+              <div>10</div>
+            </li>
+            <li className="stat">
+              <div>Question</div>
+              <div>
+                {questionNumber} / {quizData.length}
+              </div>
+            </li>
+          </ul>
+        </div>
+          <TriviaCard quizData={quizData} onloadNextClick={loadNextQuestion} />
+      </div>
+      ) : (
+        <EndScreen onRestartClick={restartGame}/>
+      )} */}
+
+      
+
     </motion.section>
   );
 }
