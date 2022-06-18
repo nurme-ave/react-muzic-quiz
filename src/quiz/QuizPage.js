@@ -8,6 +8,7 @@ import he from 'he';
 import '../quiz/QuizPage.css';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
+import Stats from './Stats';
 
 
 function QuizPage() {
@@ -35,7 +36,7 @@ function QuizPage() {
   const [showIntro, setShowIntro] = useState(true);
   const [showGame, setShowGame] = useState(false);
 
-  const questionNumber = questionIndex + 1;
+  // const questionNumber = questionIndex + 1;
 
   console.log(quizData);
   console.log("isgameover", isGameOver);
@@ -93,12 +94,12 @@ function QuizPage() {
   }
 
   function loadNextQuestion() {
-    if (questionIndex >= quizData.length - 1) {
-      setIsGameOver(true)
-      setShowGame(false);
-    } else {
-      setQuestionIndex(questionIndex + 1);
-    }
+    setQuestionIndex(questionIndex + 1);
+  }
+
+  function finishQuiz() {
+    setIsGameOver(true);
+    setShowGame(false);
   }
 
   useEffect(() => {
@@ -197,50 +198,14 @@ function QuizPage() {
       </motion.form>}
 
 
-      { showGame  ? (
+      { showGame ? (
       <div>
-        <div>
-          <ul className="stats">
-            <li className="stat">
-              <div>Score</div>
-              <div>10</div>
-            </li>
-            <li className="stat">
-              <div>Question</div>
-              <div>
-                {questionNumber} / {quizData.length}
-              </div>
-            </li>
-          </ul>
-        </div>
-          <TriviaCard quizData={quizData} onloadNextClick={loadNextQuestion} />
+        <Stats quizData={quizData} />
+        <TriviaCard quizData={quizData} onloadNextClick={loadNextQuestion} onFinishClick={finishQuiz} />
       </div>
       ) : (
         <EndScreen onRestartClick={restartGame}/>
       )}
-      {/* {isData && !isGameOver ? (
-      <div>
-        <div>
-          <ul className="stats">
-            <li className="stat">
-              <div>Score</div>
-              <div>10</div>
-            </li>
-            <li className="stat">
-              <div>Question</div>
-              <div>
-                {questionNumber} / {quizData.length}
-              </div>
-            </li>
-          </ul>
-        </div>
-          <TriviaCard quizData={quizData} onloadNextClick={loadNextQuestion} />
-      </div>
-      ) : (
-        <EndScreen onRestartClick={restartGame}/>
-      )} */}
-
-      
 
     </motion.section>
   );

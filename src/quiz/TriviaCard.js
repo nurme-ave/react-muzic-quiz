@@ -7,7 +7,7 @@ import he from 'he';
 import { QuizContext } from './Contexts';
 
 
-function TriviaCard({ quizData, onloadNextClick }) {
+function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
   const { questionIndex } = useContext(QuizContext)
 
   return (
@@ -34,16 +34,25 @@ function TriviaCard({ quizData, onloadNextClick }) {
                 );
               })}
             </ul>
-            <button
-              className="trivia-card-next-button"
-              onClick={onloadNextClick}
-            >
-              Next
-              <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
-            </button>
+            { questionIndex >= quizData.length - 1 ?
+              <button
+                className="trivia-card-next-button"
+                onClick={onFinishClick}
+              >
+                Finish quiz
+                <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+              </button> :
+              <button
+                className="trivia-card-next-button"
+                onClick={onloadNextClick}
+              >
+                Next
+                <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+              </button>
+          }
           </motion.div>
         </AnimatePresence>
   )
 }
 
-export default TriviaCard
+export default TriviaCard;
