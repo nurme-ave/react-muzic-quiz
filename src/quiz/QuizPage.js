@@ -20,10 +20,10 @@ function QuizPage() {
   const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
-  const [userSelections, setUserSelections] = useState({
-    selectionDifficulty: '',
-    selectionQuestions: 0,
-  });
+  // const [userSelections, setUserSelections] = useState({
+  //   selectionDifficulty: '',
+  //   selectionQuestions: 0,
+  // });
   const [quizData, setQuizData] = useState({
     question: '',
     incorrectAnswers: [],
@@ -64,25 +64,21 @@ function QuizPage() {
     );
   });
 
-  function getUserSelections(e) {
+  function startTheGame(e) {
     e.preventDefault();
-    setUserSelections({
-      selectionDifficulty: difficultyLevel,
-      selectionQuestions: +numOfQuestions,
-    });
     setShowIntro(false);
     setShowGame(true);
-  }
-
-  // function startTheGame() {
-  //   setShowIntro(false);
-  // }
-
-  function restartGame() {
-    setShowIntro(true);
+    // setUserSelections({
+      //   selectionDifficulty: difficultyLevel,
+      //   selectionQuestions: +numOfQuestions,
+      // });
+    }
+    
+    
+    function restartGame() {
     setIsGameOver(false);
+    setShowIntro(true);
     setQuestionIndex(0);
-    setIsData(false);
     setDifficultyLevel('');
     setNumOfQuestions(0);
     setQuizData({
@@ -100,6 +96,7 @@ function QuizPage() {
   function finishQuiz() {
     setIsGameOver(true);
     setShowGame(false);
+    setIsData(false);
   }
 
   useEffect(() => {
@@ -170,7 +167,7 @@ function QuizPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
-        onSubmit={getUserSelections}
+        onSubmit={startTheGame}
       > 
         <div className="select-container">
           <label htmlFor="difficulty">Difficulty level:</label>
