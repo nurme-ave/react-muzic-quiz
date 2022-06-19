@@ -19,10 +19,20 @@ function QuizPage() {
   const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
-  // const [userSelections, setUserSelections] = useState({
-  //   selectionDifficulty: '',
-  //   selectionQuestions: 0,
-  // });
+  const [userSelections, setUserSelections] = useState({
+    selectionDifficulty: '',
+    selectionQuestions: 0,
+  });
+
+  const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(value => value);
+  console.log(hasUserMadeSelections)
+
+  // let nextButtonClass = 'trivia-item__next-button';
+  // if (!haspickedAnswer) nextButtonClass += ' trivia-item__button--disabled';
+
+  let startButtonClasses = 'start-quiz-button';
+  if (!hasUserMadeSelections) startButtonClasses += ' trivia-card-button-disabled';
+
   const [quizData, setQuizData] = useState({
     question: '',
     incorrectAnswers: [],
@@ -37,12 +47,13 @@ function QuizPage() {
 
   // const questionNumber = questionIndex + 1;
 
-  console.log(quizData);
-  console.log('isgameover', isGameOver);
-  console.log('questionindex', questionIndex);
-  console.log('isdata', isData);
-  console.log('difflevel', difficultyLevel);
-  console.log('numofquestions', numOfQuestions);
+  // console.log(quizData);
+  // console.log('isgameover', isGameOver);
+  // console.log('questionindex', questionIndex);
+  // console.log('isdata', isData);
+  // console.log('difflevel', difficultyLevel);
+  // console.log('numofquestions', numOfQuestions);
+  console.log('userSelections', userSelections);
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -66,10 +77,10 @@ function QuizPage() {
     e.preventDefault();
     setShowIntro(false);
     setShowGame(true);
-    // setUserSelections({
-    //   selectionDifficulty: difficultyLevel,
-    //   selectionQuestions: +numOfQuestions,
-    // });
+    setUserSelections({
+      selectionDifficulty: difficultyLevel,
+      selectionQuestions: +numOfQuestions,
+    });
   }
 
   function restartGame() {
@@ -199,7 +210,7 @@ function QuizPage() {
                 {optionNumOfQuestions}
               </select>
             </div>
-            <button className="start-quiz-button">Start!</button>
+            <button className={startButtonClasses} disabled={!hasUserMadeSelections}>Start!</button>
           </motion.form>
         </>
       )}

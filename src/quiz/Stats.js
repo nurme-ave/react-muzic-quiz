@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { motion } from 'framer-motion';
 import { QuizContext } from './Contexts';
 
 function Stats({ quizData }) {
@@ -6,7 +7,11 @@ function Stats({ quizData }) {
   const questionNumber = questionIndex + 1;
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.25, duration: 1 }}
+    >
       <ul className="stats">
         <li className="stat">
           <div>Score</div>
@@ -19,8 +24,8 @@ function Stats({ quizData }) {
           </div>
         </li>
       </ul>
-    </div>
-  )
+    </motion.div>
+  );
 }
 
-export default Stats
+export default Stats;
