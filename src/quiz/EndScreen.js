@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
 
 function EndScreen({ onRestartClick }) {
-  const { score } = useContext(QuizContext)
+  const { score } = useContext(QuizContext);
 
   return (
     <motion.div

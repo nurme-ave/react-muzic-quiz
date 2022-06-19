@@ -1,33 +1,26 @@
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
+import { QuizContext } from './Contexts';
 import { motion, AnimatePresence } from 'framer-motion';
-import { nanoid } from 'nanoid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
-import { QuizContext } from './Contexts';
 
-function TriviaCard({ quizData, onloadNextClick, onFinishClick, onSelectedAnswer }) {
+function TriviaCard({
+  quizData,
+  onloadNextClick,
+  onFinishClick,
+  onSelectedAnswer,
+}) {
   const { questionIndex } = useContext(QuizContext);
   const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
-  // const { score, setScore } = useContext(QuizContext);
-  // const [selectedAnswer, setSelectedAnswer] = useState(null);
   const haspickedAnswer = selectedAnswer !== null;
-  
-  // console.log(selectedAnswer)
-  // console.log(haspickedAnswer)
-  
+
   function onAnswerClick(e) {
-    // console.log("clicked")
-    // console.log('selected answer', selectedAnswer);
-    const userAnswer = e.target.innerHTML;
+    const userAnswer = e.target.textContent;
     setSelectedAnswer(userAnswer);
-    // console.log(userAnswer)
-    // console.log('selected answer', selectedAnswer);
     const isUserCorrect = userAnswer === quizData[questionIndex].correctAnswer;
     onSelectedAnswer(isUserCorrect);
   }
-
-
 
   return (
     <AnimatePresence exitBeforeEnter={true}>
@@ -44,33 +37,26 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick, onSelectedAnswer
         </p>
         <ul className="trivia-card-answers">
           {quizData[questionIndex].allAnswers.map((answer) => {
-          
-          // console.log(quizData[questionIndex].allAnswers)
-          // console.log(answer)
+            let answerButtonClasses = 'trivia-card-button';
 
-          let answerButtonClasses = 'trivia-card-button';
+            if (haspickedAnswer) {
+              const pickedThisAnswer = answer === selectedAnswer;
+              const isThisCorrect =
+                answer === quizData[questionIndex].correctAnswer;
 
-          if (haspickedAnswer) {
-            const pickedThisAnswer = answer === selectedAnswer;
-            // console.log(pickedThisAnswer)
-            const isThisCorrect = answer === quizData[questionIndex].correctAnswer;
-            // console.log(isThisCorrect)
-
-            if (pickedThisAnswer && isThisCorrect) {
-              answerButtonClasses += ' trivia-card-button-correct';
-            } else if (pickedThisAnswer && !isThisCorrect) {
-              answerButtonClasses += ' trivia-card-button-incorrect';
-            } else {
-              answerButtonClasses += ' trivia-card-button-disabled';
+              if (pickedThisAnswer && isThisCorrect) {
+                answerButtonClasses += ' trivia-card-button-correct';
+              } else if (pickedThisAnswer && !isThisCorrect) {
+                answerButtonClasses += ' trivia-card-button-incorrect';
+              } else {
+                answerButtonClasses += ' trivia-card-button-disabled';
+              }
             }
-          }
-            
 
             return (
               <li key={answer}>
                 <button
                   className={answerButtonClasses}
-                  // className='trivia-card-button'
                   onClick={onAnswerClick}
                   disabled={haspickedAnswer}
                 >

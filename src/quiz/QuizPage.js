@@ -6,30 +6,21 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
 
 import '../quiz/QuizPage.css';
+import Stats from './Stats';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
-import Stats from './Stats';
 
 function QuizPage() {
   const [isGameOver, setIsGameOver] = useState(false);
 
   const { score, setScore } = useContext(QuizContext)
   const { questionIndex, setQuestionIndex } = useContext(QuizContext);
-  const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
+  const { setSelectedAnswer } = useContext(QuizContext);
 
-  // const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
-  const [userSelections, setUserSelections] = useState({
-    selectionDifficulty: '',
-    selectionQuestions: 0,
-  });
 
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(value => value);
-  // console.log(hasUserMadeSelections)
-
-  // let nextButtonClass = 'trivia-item__next-button';
-  // if (!haspickedAnswer) nextButtonClass += ' trivia-item__button--disabled';
 
   let startButtonClasses = 'start-quiz-button';
   if (!hasUserMadeSelections) startButtonClasses += ' trivia-card-button-disabled';
@@ -40,21 +31,9 @@ function QuizPage() {
     correctAnswer: '',
     allAnswers: [],
   });
-  // const [gameState, setGameState] = useState({
-  //   score: 0,
-  // });
-  // const [showIntro, setShowIntro] = useState(true);
   const [showGame, setShowGame] = useState(false);
 
-  // const questionNumber = questionIndex + 1;
 
-  console.log(quizData);
-  // console.log('isgameover', isGameOver);
-  // console.log('questionindex', questionIndex);
-  // console.log('isdata', isData);
-  // console.log('difflevel', difficultyLevel);
-  // console.log('numofquestions', numOfQuestions);
-  // console.log('userSelections', userSelections);
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -76,12 +55,7 @@ function QuizPage() {
 
   function startTheGame(e) {
     e.preventDefault();
-    // setShowIntro(false);
     setShowGame(true);
-    setUserSelections({
-      selectionDifficulty: difficultyLevel,
-      selectionQuestions: +numOfQuestions,
-    });
   }
 
   function restartGame() {
@@ -115,34 +89,6 @@ function QuizPage() {
     }
   }
 
-  
-
-  // const [selectedAnswer, setSelectedAnswer] = useState(null);
-  // const haspickedAnswer = selectedAnswer !== null;
-
-  // function isCorrectAnswer(e) {
-  //   console.log(e.target.textContent)
-  //   const userAnswer = e.target.textContent;
-  //   console.log(userAnswer)
-    // setSelectedAnswer(userAnswer)
-    // console.log(selectedAnswer)
-    // console.log(quizData[questionIndex].correctAnswer)
-    // const isUserCorrect = (userAnswer === quizData[questionIndex].correctAnswer)
-    // console.log(isUserCorrect)
-    // onSelectedAnswer(isUserCorrect)
-
-    // if (isUserCorrect) {
-    //   setScore(score + 1)
-    // }
-
-    // onSelectedAnswer(isUserCorrect);
-  // }
-
-  // function onSelectedAnswer(isUserCorrect) {
-  //   if (isUserCorrect) {
-  //     setScore(score + 1)
-  //   }
-  // }
 
   useEffect(() => {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
