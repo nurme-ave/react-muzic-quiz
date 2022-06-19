@@ -112,11 +112,12 @@ select {
   justify-content: center;
   align-items: center;
   gap: 1em;
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 }
 
 .trivia-card-question {
+  width: 100%;
   padding: 1em 0;
   font-size: 1.2rem;
   font-weight: 600;

@@ -1,9 +1,15 @@
+import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
 
 function EndScreen({ onRestartClick }) {
   return (
-    <div className="final-results">
+    <motion.div
+      className="final-results"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.5, duration: 1 }}
+    >
       <h1>Quiz complete!</h1>
       <h2>
         Congrats!
@@ -16,7 +22,7 @@ function EndScreen({ onRestartClick }) {
       <button className="trivia-card-next-button" onClick={onRestartClick}>
         Play again?
       </button>
-    </div>
+    </motion.div>
   );
 }
 
