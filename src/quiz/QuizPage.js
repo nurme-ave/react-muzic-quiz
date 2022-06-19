@@ -16,7 +16,7 @@ function QuizPage() {
   // const { score, setScore } = useContext(QuizContext)
   const { questionIndex, setQuestionIndex } = useContext(QuizContext);
 
-  const [isData, setIsData] = useState(false);
+  // const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
   const [userSelections, setUserSelections] = useState({
@@ -25,7 +25,7 @@ function QuizPage() {
   });
 
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(value => value);
-  console.log(hasUserMadeSelections)
+  // console.log(hasUserMadeSelections)
 
   // let nextButtonClass = 'trivia-item__next-button';
   // if (!haspickedAnswer) nextButtonClass += ' trivia-item__button--disabled';
@@ -42,7 +42,7 @@ function QuizPage() {
   // const [gameState, setGameState] = useState({
   //   score: 0,
   // });
-  const [showIntro, setShowIntro] = useState(true);
+  // const [showIntro, setShowIntro] = useState(true);
   const [showGame, setShowGame] = useState(false);
 
   // const questionNumber = questionIndex + 1;
@@ -53,7 +53,7 @@ function QuizPage() {
   // console.log('isdata', isData);
   // console.log('difflevel', difficultyLevel);
   // console.log('numofquestions', numOfQuestions);
-  console.log('userSelections', userSelections);
+  // console.log('userSelections', userSelections);
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -75,7 +75,7 @@ function QuizPage() {
 
   function startTheGame(e) {
     e.preventDefault();
-    setShowIntro(false);
+    // setShowIntro(false);
     setShowGame(true);
     setUserSelections({
       selectionDifficulty: difficultyLevel,
@@ -85,7 +85,7 @@ function QuizPage() {
 
   function restartGame() {
     setIsGameOver(false);
-    setShowIntro(true);
+    // setShowIntro(true);
     setQuestionIndex(0);
     setDifficultyLevel('');
     setNumOfQuestions(0);
@@ -104,7 +104,19 @@ function QuizPage() {
   function finishQuiz() {
     setIsGameOver(true);
     setShowGame(false);
-    setIsData(false);
+    // setIsData(false);
+  }
+
+  // const [selectedAnswer, setSelectedAnswer] = useState(null);
+  // const haspickedAnswer = selectedAnswer !== null;
+
+  function isCorrectAnswer(e) {
+    console.log(e.target.textContent)
+    // const userAnswer = e.target.textContent;
+    // setSelectedAnswer(userAnswer);
+    // const isUserCorrect = userAnswer === quizData.correctAnswer;
+    // console.log(isUserCorrect)
+    // onSelectedAnswer(isUserCorrect);
   }
 
   useEffect(() => {
@@ -145,7 +157,7 @@ function QuizPage() {
             return shuffledArray;
           }
           setQuizData(decodedResults);
-          setIsData(true);
+          // setIsData(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -167,6 +179,7 @@ function QuizPage() {
             quizData={quizData}
             onloadNextClick={loadNextQuestion}
             onFinishClick={finishQuiz}
+            onAnswerClick={(e) => isCorrectAnswer(e)}
           />
         </div>
       ) : isGameOver ? (

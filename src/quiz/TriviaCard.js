@@ -7,7 +7,7 @@ import he from 'he';
 import { QuizContext } from './Contexts';
 
 
-function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
+function TriviaCard({ quizData, onloadNextClick, onFinishClick, onAnswerClick }) {
   const { questionIndex } = useContext(QuizContext)
 
   return (
@@ -27,7 +27,7 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
               {quizData[questionIndex].allAnswers.map((answer) => {
                 return (
                   <li key={nanoid()}>
-                    <button className="trivia-card-button">
+                    <button className="trivia-card-button" onClick={onAnswerClick}>
                       {he.decode(answer)}
                     </button>
                   </li>
