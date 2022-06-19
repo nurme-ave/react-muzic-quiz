@@ -10,12 +10,11 @@ import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
 import Stats from './Stats';
 
-
 function QuizPage() {
   const [isGameOver, setIsGameOver] = useState(false);
 
   // const { score, setScore } = useContext(QuizContext)
-  const { questionIndex, setQuestionIndex } = useContext(QuizContext)
+  const { questionIndex, setQuestionIndex } = useContext(QuizContext);
 
   const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
@@ -39,12 +38,11 @@ function QuizPage() {
   // const questionNumber = questionIndex + 1;
 
   console.log(quizData);
-  console.log("isgameover", isGameOver);
-  console.log("questionindex", questionIndex);
-  console.log("isdata", isData);
-  console.log("difflevel", difficultyLevel);
-  console.log("numofquestions", numOfQuestions);
-
+  console.log('isgameover', isGameOver);
+  console.log('questionindex', questionIndex);
+  console.log('isdata', isData);
+  console.log('difflevel', difficultyLevel);
+  console.log('numofquestions', numOfQuestions);
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -69,13 +67,12 @@ function QuizPage() {
     setShowIntro(false);
     setShowGame(true);
     // setUserSelections({
-      //   selectionDifficulty: difficultyLevel,
-      //   selectionQuestions: +numOfQuestions,
-      // });
-    }
-    
-    
-    function restartGame() {
+    //   selectionDifficulty: difficultyLevel,
+    //   selectionQuestions: +numOfQuestions,
+    // });
+  }
+
+  function restartGame() {
     setIsGameOver(false);
     setShowIntro(true);
     setQuestionIndex(0);
@@ -152,17 +149,18 @@ function QuizPage() {
       animate={{ opacity: 1 }}
       transition={{ delay: 1, duration: 1 }}
     >
-      {showIntro && 
-      <div>
-        <h2>Welcome!</h2>
-        <p>Make your pick below and start the quiz.</p>
-        <p>
-          Good luck!
-          <FontAwesomeIcon icon={faMusic} className="fa-icon" />
-        </p>
-      </div>}
+      {showIntro && (
+        <div>
+          <h2>Welcome!</h2>
+          <p>Make your pick below and start the quiz.</p>
+          <p>
+            Good luck!
+            <FontAwesomeIcon icon={faMusic} className="fa-icon" />
+          </p>
+        </div>
+      )}
 
-      { !isGameOver && showIntro && <motion.form
+      {/* { !isGameOver && showIntro && <motion.form
         className="form-container"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -192,9 +190,67 @@ function QuizPage() {
           </select>
         </div>
         <button className="start-quiz-button">Start!</button>
-      </motion.form>}
+      </motion.form>} */}
 
+      {/* { showGame ? (
+      <div>
+        <Stats quizData={quizData} />
+        <TriviaCard quizData={quizData} onloadNextClick={loadNextQuestion} onFinishClick={finishQuiz} />
+      </div>
+      ) : (
+        <EndScreen onRestartClick={restartGame}/> ?
+      ) : (
 
+      )
+      
+      } */}
+
+      {showGame ? (
+        <div>
+          <Stats quizData={quizData} />
+          <TriviaCard
+            quizData={quizData}
+            onloadNextClick={loadNextQuestion}
+            onFinishClick={finishQuiz}
+          />
+        </div>
+      ) : isGameOver ? (
+        <EndScreen onRestartClick={restartGame} />
+      ) : (
+        <motion.form
+          className="form-container"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 1 }}
+          onSubmit={startTheGame}
+        >
+          <div className="select-container">
+            <label htmlFor="difficulty">Difficulty level:</label>
+            <select
+              value={difficultyLevel}
+              id="difficulty"
+              onChange={(e) => setDifficultyLevel(e.target.value)}
+            >
+              <option value="">-- Select --</option>
+              {optionDifficultyLevels}
+            </select>
+          </div>
+          <div className="select-container">
+            <label htmlFor="numOfQuestions">Number of questions:</label>
+            <select
+              value={numOfQuestions}
+              id="numOfQuestions"
+              onChange={(e) => setNumOfQuestions(e.target.value)}
+            >
+              <option value="">-- Select --</option>
+              {optionNumOfQuestions}
+            </select>
+          </div>
+          <button className="start-quiz-button">Start!</button>
+        </motion.form>
+      )}
+
+      {/* 
       { showGame ? (
       <div>
         <Stats quizData={quizData} />
@@ -202,8 +258,7 @@ function QuizPage() {
       </div>
       ) : (
         <EndScreen onRestartClick={restartGame}/>
-      )}
-
+      )} */}
     </motion.section>
   );
 }
