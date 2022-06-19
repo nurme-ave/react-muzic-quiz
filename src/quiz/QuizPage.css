@@ -198,6 +198,11 @@ select {
   background: #c02626;
 }
 
+.trivia-card-button.trivia-card-button-selected {
+  color: #fff;
+  background: yellowgreen;
+}
+
 .final-results {
   display: flex;
   flex-direction: column;

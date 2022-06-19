@@ -13,8 +13,9 @@ import Stats from './Stats';
 function QuizPage() {
   const [isGameOver, setIsGameOver] = useState(false);
 
-  // const { score, setScore } = useContext(QuizContext)
+  const { score, setScore } = useContext(QuizContext)
   const { questionIndex, setQuestionIndex } = useContext(QuizContext);
+  const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
 
   // const [isData, setIsData] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
@@ -47,7 +48,7 @@ function QuizPage() {
 
   // const questionNumber = questionIndex + 1;
 
-  // console.log(quizData);
+  console.log(quizData);
   // console.log('isgameover', isGameOver);
   // console.log('questionindex', questionIndex);
   // console.log('isdata', isData);
@@ -84,8 +85,9 @@ function QuizPage() {
   }
 
   function restartGame() {
+    setSelectedAnswer(null);
+    setScore(0);
     setIsGameOver(false);
-    // setShowIntro(true);
     setQuestionIndex(0);
     setDifficultyLevel('');
     setNumOfQuestions(0);
@@ -99,13 +101,21 @@ function QuizPage() {
 
   function loadNextQuestion() {
     setQuestionIndex(questionIndex + 1);
+    setSelectedAnswer(null);
   }
 
   function finishQuiz() {
     setIsGameOver(true);
     setShowGame(false);
-    // setIsData(false);
   }
+
+  function onSelectedAnswer(isUserCorrect) {
+    if (isUserCorrect) {
+      setScore(score + 1);
+    }
+  }
+
+  
 
   // const [selectedAnswer, setSelectedAnswer] = useState(null);
   // const haspickedAnswer = selectedAnswer !== null;
@@ -194,7 +204,7 @@ function QuizPage() {
             quizData={quizData}
             onloadNextClick={loadNextQuestion}
             onFinishClick={finishQuiz}
-            // onAnswerClick={isCorrectAnswer}
+            onSelectedAnswer={onSelectedAnswer}
           />
         </div>
       ) : isGameOver ? (

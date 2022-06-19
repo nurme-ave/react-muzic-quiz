@@ -10,11 +10,12 @@ function App() {
   // const [score, setScore] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   return (
     <main className="main-container">
       <Header />
-      <QuizContext.Provider value={{ questionIndex, setQuestionIndex, score, setScore }}>
+      <QuizContext.Provider value={{ questionIndex, setQuestionIndex, score, setScore, selectedAnswer, setSelectedAnswer }}>
         <QuizPage />
       </QuizContext.Provider>
       <Footer />
