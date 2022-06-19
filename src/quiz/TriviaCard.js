@@ -4,15 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
+import '../quiz/TriviaCard.css';
 
 function TriviaCard({
   quizData,
   onloadNextClick,
   onFinishClick,
-  onSelectedAnswer,
 }) {
   const { questionIndex } = useContext(QuizContext);
   const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
+  const { score, setScore } = useContext(QuizContext);
+
   const haspickedAnswer = selectedAnswer !== null;
 
   function onAnswerClick(e) {
@@ -20,6 +22,12 @@ function TriviaCard({
     setSelectedAnswer(userAnswer);
     const isUserCorrect = userAnswer === quizData[questionIndex].correctAnswer;
     onSelectedAnswer(isUserCorrect);
+  }
+
+  function onSelectedAnswer(isUserCorrect) {
+    if (isUserCorrect) {
+      setScore(score + 1);
+    }
   }
 
   return (

@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { QuizContext } from './Contexts';
 import { motion } from 'framer-motion';
+import '../quiz/Stats.css';
 
 function Stats({ quizData }) {
   const { questionIndex } = useContext(QuizContext);

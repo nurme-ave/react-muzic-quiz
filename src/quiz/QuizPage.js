@@ -4,36 +4,27 @@ import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
-
 import '../quiz/QuizPage.css';
 import Stats from './Stats';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
 
 function QuizPage() {
-  const [isGameOver, setIsGameOver] = useState(false);
-
-  const { score, setScore } = useContext(QuizContext)
+  const { setScore } = useContext(QuizContext);
   const { questionIndex, setQuestionIndex } = useContext(QuizContext);
   const { setSelectedAnswer } = useContext(QuizContext);
-
+  const [isGameOver, setIsGameOver] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
-
-  const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(value => value);
-
-  let startButtonClasses = 'start-quiz-button';
-  if (!hasUserMadeSelections) startButtonClasses += ' trivia-card-button-disabled';
-
-  const [quizData, setQuizData] = useState({
-    question: '',
-    incorrectAnswers: [],
-    correctAnswer: '',
-    allAnswers: [],
-  });
   const [showGame, setShowGame] = useState(false);
 
+  const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(
+    (value) => value
+  );
 
+  let startButtonClasses = 'start-quiz-button';
+  if (!hasUserMadeSelections)
+    startButtonClasses += ' trivia-card-button-disabled';
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
   const optionDifficultyLevels = arrDifficultyLevels.map((level) => {
@@ -53,18 +44,25 @@ function QuizPage() {
     );
   });
 
+  const [quizData, setQuizData] = useState({
+    question: '',
+    incorrectAnswers: [],
+    correctAnswer: '',
+    allAnswers: [],
+  });
+
   function startTheGame(e) {
     e.preventDefault();
     setShowGame(true);
   }
 
   function restartGame() {
-    setSelectedAnswer(null);
-    setScore(0);
     setIsGameOver(false);
-    setQuestionIndex(0);
     setDifficultyLevel('');
     setNumOfQuestions(0);
+    setSelectedAnswer(null);
+    setQuestionIndex(0);
+    setScore(0);
     setQuizData({
       question: '',
       incorrectAnswers: [],
@@ -82,13 +80,6 @@ function QuizPage() {
     setIsGameOver(true);
     setShowGame(false);
   }
-
-  function onSelectedAnswer(isUserCorrect) {
-    if (isUserCorrect) {
-      setScore(score + 1);
-    }
-  }
-
 
   useEffect(() => {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
@@ -128,7 +119,6 @@ function QuizPage() {
             return shuffledArray;
           }
           setQuizData(decodedResults);
-          // setIsData(true);
         })
         .catch((err) => {
           console.log(err.message);
@@ -150,7 +140,6 @@ function QuizPage() {
             quizData={quizData}
             onloadNextClick={loadNextQuestion}
             onFinishClick={finishQuiz}
-            onSelectedAnswer={onSelectedAnswer}
           />
         </div>
       ) : isGameOver ? (
@@ -194,7 +183,12 @@ function QuizPage() {
                 {optionNumOfQuestions}
               </select>
             </div>
-            <button className={startButtonClasses} disabled={!hasUserMadeSelections}>Start!</button>
+            <button
+              className={startButtonClasses}
+              disabled={!hasUserMadeSelections}
+            >
+              Start!
+            </button>
           </motion.form>
         </>
       )}

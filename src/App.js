@@ -5,16 +5,24 @@ import Footer from './footer/Footer';
 import { QuizContext } from './quiz/Contexts';
 import { useState } from 'react';
 
-
 function App() {
-  const [questionIndex, setQuestionIndex] = useState(0)
+  const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0);
 
   return (
     <main className="main-container">
       <Header />
-      <QuizContext.Provider value={{ questionIndex, setQuestionIndex, selectedAnswer, setSelectedAnswer, score, setScore }}>
+      <QuizContext.Provider
+        value={{
+          questionIndex,
+          setQuestionIndex,
+          selectedAnswer,
+          setSelectedAnswer,
+          score,
+          setScore,
+        }}
+      >
         <QuizPage />
       </QuizContext.Provider>
       <Footer />

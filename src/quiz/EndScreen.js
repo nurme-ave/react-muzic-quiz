@@ -3,6 +3,7 @@ import { QuizContext } from './Contexts';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
+import '../quiz/EndScreen.css';
 
 function EndScreen({ onRestartClick }) {
   const { score } = useContext(QuizContext);
