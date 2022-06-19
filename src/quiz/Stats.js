@@ -1,10 +1,11 @@
 import { useContext } from 'react';
-import { motion } from 'framer-motion';
 import { QuizContext } from './Contexts';
+import { motion } from 'framer-motion';
 
 function Stats({ quizData }) {
   const { questionIndex } = useContext(QuizContext);
   const questionNumber = questionIndex + 1;
+  const { score } = useContext(QuizContext)
 
   return (
     <motion.div
@@ -15,7 +16,7 @@ function Stats({ quizData }) {
       <ul className="stats">
         <li className="stat">
           <div>Score</div>
-          <div>10</div>
+          <div>{score}</div>
         </li>
         <li className="stat">
           <div>Question</div>

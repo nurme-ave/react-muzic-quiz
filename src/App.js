@@ -9,11 +9,12 @@ import { useState } from 'react';
 function App() {
   // const [score, setScore] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0)
+  const [score, setScore] = useState(0)
 
   return (
     <main className="main-container">
       <Header />
-      <QuizContext.Provider value={{ questionIndex, setQuestionIndex }}>
+      <QuizContext.Provider value={{ questionIndex, setQuestionIndex, score, setScore }}>
         <QuizPage />
       </QuizContext.Provider>
       <Footer />

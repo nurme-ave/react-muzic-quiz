@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useState, useContext } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { nanoid } from 'nanoid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,14 +7,33 @@ import he from 'he';
 import { QuizContext } from './Contexts';
 
 
-function TriviaCard({ quizData, onloadNextClick, onFinishClick, onAnswerClick }) {
+function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
   const { questionIndex } = useContext(QuizContext)
+  const { score, setScore } = useContext(QuizContext)
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  // const haspickedAnswer = selectedAnswer !== null;
+
+  function onAnswerClick(e) {
+    const playerAnswer = e.target.innerHTML;
+    console.log("player answer", playerAnswer)
+    setSelectedAnswer(playerAnswer);
+    console.log("selected answer", selectedAnswer)
+    const wasPlayerCorrect = playerAnswer === quizData[questionIndex].correctAnswer;
+    console.log(wasPlayerCorrect)
+    onAnswerSelected(wasPlayerCorrect);
+  }
+
+  function onAnswerSelected(wasPlayerCorrect) {
+    if (wasPlayerCorrect) {
+      setScore(score + 1)
+    }
+  }
 
   return (
     <AnimatePresence exitBeforeEnter={true}>
           <motion.div
             className="trivia-card-container"
-            key={nanoid()}
+            key={questionIndex}
             initial={{ opacity: 0, x: -300, transition: { ease: 'easeOut' } }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 300 }}

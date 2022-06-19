@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import { QuizContext } from './Contexts';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
 
 function EndScreen({ onRestartClick }) {
+  const { score } = useContext(QuizContext)
+
   return (
     <motion.div
       className="final-results"
@@ -17,7 +21,7 @@ function EndScreen({ onRestartClick }) {
       </h2>
       <div className="end-screen-stats">
         <div className="end-screen-stat-label">Final score</div>
-        <div className="end-screen-stat-value">10</div>
+        <div className="end-screen-stat-value">{score}</div>
       </div>
       <button className="trivia-card-next-button" onClick={onRestartClick}>
         Play again?

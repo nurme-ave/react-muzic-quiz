@@ -110,14 +110,29 @@ function QuizPage() {
   // const [selectedAnswer, setSelectedAnswer] = useState(null);
   // const haspickedAnswer = selectedAnswer !== null;
 
-  function isCorrectAnswer(e) {
-    console.log(e.target.textContent)
-    // const userAnswer = e.target.textContent;
-    // setSelectedAnswer(userAnswer);
-    // const isUserCorrect = userAnswer === quizData.correctAnswer;
+  // function isCorrectAnswer(e) {
+  //   console.log(e.target.textContent)
+  //   const userAnswer = e.target.textContent;
+  //   console.log(userAnswer)
+    // setSelectedAnswer(userAnswer)
+    // console.log(selectedAnswer)
+    // console.log(quizData[questionIndex].correctAnswer)
+    // const isUserCorrect = (userAnswer === quizData[questionIndex].correctAnswer)
     // console.log(isUserCorrect)
+    // onSelectedAnswer(isUserCorrect)
+
+    // if (isUserCorrect) {
+    //   setScore(score + 1)
+    // }
+
     // onSelectedAnswer(isUserCorrect);
-  }
+  // }
+
+  // function onSelectedAnswer(isUserCorrect) {
+  //   if (isUserCorrect) {
+  //     setScore(score + 1)
+  //   }
+  // }
 
   useEffect(() => {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
@@ -179,7 +194,7 @@ function QuizPage() {
             quizData={quizData}
             onloadNextClick={loadNextQuestion}
             onFinishClick={finishQuiz}
-            onAnswerClick={(e) => isCorrectAnswer(e)}
+            // onAnswerClick={isCorrectAnswer}
           />
         </div>
       ) : isGameOver ? (
