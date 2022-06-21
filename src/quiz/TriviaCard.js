@@ -77,7 +77,7 @@ function TriviaCard({
         {questionIndex >= quizData.length - 1 ? (
           <button className="trivia-card-next-button" onClick={onFinishClick}>
             Finish quiz
-            <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+            <FontAwesomeIcon icon={faArrowRight} className="fa-icon-arrow" />
           </button>
         ) : (
           <button
@@ -86,7 +86,7 @@ function TriviaCard({
             disabled={!haspickedAnswer}
           >
             Next
-            <FontAwesomeIcon icon={faArrowRight} className="fa-icon" />
+            <FontAwesomeIcon icon={faArrowRight} className="fa-icon-arrow" />
           </button>
         )}
       </motion.div>

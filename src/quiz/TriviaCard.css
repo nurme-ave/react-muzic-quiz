@@ -95,6 +95,10 @@
   background: yellowgreen;
 }
 
+.fa-icon-arrow {
+  margin-left: 0.5em;
+}
+
 
 /* MEDIA QUERIES */
 @media screen and (min-width: 400px) {
