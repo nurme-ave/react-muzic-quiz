@@ -7,7 +7,7 @@
   height: 100%;
   gap: 0.25em;
   margin: 1em 0;
-  padding: 3em 4em;
+  padding: 3.5em 4.5em;
   border-radius: .5em;
   border: 1px solid lightskyblue;
   color: #fff;
@@ -30,7 +30,7 @@
 }
 
 .end-screen-stat:last-child {
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 .fa-icon-medal {
@@ -46,8 +46,8 @@
   }
 }
 
-/* @media screen and (min-width: 1024px) {
+@media screen and (min-width: 768px) {
   .final-results {
-    padding: 3em 6em;
+    padding: 3em 5em;
   }
-} */
+}
