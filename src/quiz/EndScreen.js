@@ -19,11 +19,11 @@ function EndScreen({ onRestartClick }) {
       <h1>Quiz complete!</h1>
       <h2>
         Congrats!
-        <FontAwesomeIcon icon={faMedal} className="fa-icon" />
+        <FontAwesomeIcon icon={faMedal} className="fa-icon-medal" />
       </h2>
-      <div className="end-screen-stats">
-        <div className="end-screen-stat-label">Final score</div>
-        <div className="end-screen-stat-value">{score}</div>
+      <div>
+        <div className="end-screen-stat">Final score:</div>
+        <div className="end-screen-stat">{score}</div>
       </div>
       <button className="trivia-card-next-button" onClick={onRestartClick}>
         Play again?

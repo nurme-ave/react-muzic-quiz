@@ -107,5 +107,8 @@
   }
 }
 
-/* @media screen and (min-width: 425px) {
-} */
+@media screen and (min-width: 1200px) {
+  .trivia-card-question {
+    width: 100%;
+  }
+}

@@ -11,9 +11,3 @@
     font-size: 4rem;
   }
 }
-
-@media screen and (min-width: 1024px) {
-  .header {
-    font-size: 5rem;
-  }
-}
