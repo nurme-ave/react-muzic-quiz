@@ -10,7 +10,7 @@
 
 .trivia-card-question {
   width: 100%;
-  padding: 1em 0;
+  padding: 1em;
   font-size: 1.2rem;
   font-weight: 600;
   text-align: center;
@@ -94,3 +94,7 @@
   color: #fff;
   background: yellowgreen;
 }
+
+
+/* MEDIA QUERIES */
+

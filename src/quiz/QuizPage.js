@@ -12,11 +12,12 @@ import EndScreen from './EndScreen';
 function QuizPage() {
   const { setScore } = useContext(QuizContext);
   const { questionIndex, setQuestionIndex } = useContext(QuizContext);
-  const { setSelectedAnswer } = useContext(QuizContext);
+  const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
   const [isGameOver, setIsGameOver] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
   const [showGame, setShowGame] = useState(false);
+
 
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(
     (value) => value
