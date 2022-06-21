@@ -9,7 +9,7 @@
 }
 
 .trivia-card-question {
-  width: 100%;
+  width: 95%;
   padding: 1em;
   font-size: 1.2rem;
   font-weight: 600;
@@ -28,7 +28,7 @@
 }
 
 .trivia-card-button {
-  width: 21em;
+  width: 19em;
   font-family: 'Poppins', sans-serif;
   font-size: 1rem;
   text-align: center;
@@ -97,8 +97,15 @@
 
 
 /* MEDIA QUERIES */
-@media screen and (min-width: 415px) {
+@media screen and (min-width: 400px) {
   .trivia-card-question {
-    width: 75%;
+    width: 85%;
+  }
+
+  .trivia-card-button {
+    width: 21em;
   }
 }
+
+/* @media screen and (min-width: 425px) {
+} */
