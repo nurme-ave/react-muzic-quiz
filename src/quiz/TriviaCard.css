@@ -97,4 +97,8 @@
 
 
 /* MEDIA QUERIES */
-
+@media screen and (min-width: 415px) {
+  .trivia-card-question {
+    width: 75%;
+  }
+}
