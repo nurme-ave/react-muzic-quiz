@@ -1,10 +1,11 @@
-import { useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { QuizContext } from './Contexts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
 import '../quiz/TriviaCard.css';
+import Spinner from './Spinner';
 
 function TriviaCard({
   quizData,
@@ -14,6 +15,14 @@ function TriviaCard({
   const { questionIndex } = useContext(QuizContext);
   const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
   const { score, setScore } = useContext(QuizContext);
+  const [loaded, setLoaded] = useState(false);
+
+  // console.log(loaded)
+  // console.log(quizData)
+
+  useEffect(() => {
+    setLoaded(true);
+  }, [quizData])
 
   const haspickedAnswer = selectedAnswer !== null;
 
@@ -31,6 +40,7 @@ function TriviaCard({
   }
 
   return (
+    <>
     <AnimatePresence exitBeforeEnter={true}>
       <motion.div
         className="trivia-card-container"
@@ -91,6 +101,7 @@ function TriviaCard({
         )}
       </motion.div>
     </AnimatePresence>
+    </>
   );
 }
 

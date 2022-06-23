@@ -8,6 +8,7 @@ import '../quiz/QuizPage.css';
 import Stats from './Stats';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
+import Spinner from './Spinner';
 
 function QuizPage() {
   const { setScore } = useContext(QuizContext);
@@ -17,6 +18,12 @@ function QuizPage() {
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
   const [showGame, setShowGame] = useState(false);
+  const [spinner, setSpinner] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+
+  console.log("loaded", loaded)
 
 
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(
@@ -54,10 +61,12 @@ function QuizPage() {
 
   function startTheGame(e) {
     e.preventDefault();
+    setSpinner(true);
     setShowGame(true);
   }
 
   function restartGame() {
+    setLoaded(false);
     setIsGameOver(false);
     setDifficultyLevel('');
     setNumOfQuestions(0);
@@ -86,6 +95,7 @@ function QuizPage() {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
 
     if (numOfQuestions !== 0 && difficultyLevel !== '') {
+      setLoading(true)
       fetch(url)
         .then((response) => {
           if (!response.ok) {
@@ -119,7 +129,10 @@ function QuizPage() {
             }
             return shuffledArray;
           }
+          setLoaded(true);
           setQuizData(decodedResults);
+          setLoading(false)
+
         })
         .catch((err) => {
           console.log(err.message);
@@ -129,11 +142,12 @@ function QuizPage() {
 
   return (
     <motion.section
-      className="section-container"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1, duration: 1 }}
+    className="section-container"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 1, duration: 1 }}
     >
+      {/* {loaded && showGame ? ( */}
       {showGame ? (
         <div>
           <Stats quizData={quizData} />
@@ -188,7 +202,7 @@ function QuizPage() {
               className={startButtonClasses}
               disabled={!hasUserMadeSelections}
             >
-              Start!
+              {loading ? <Spinner /> : 'Start!'}
             </button>
           </motion.form>
         </>
