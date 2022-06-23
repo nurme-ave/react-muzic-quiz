@@ -106,9 +106,9 @@
     width: 85%;
   }
 
-  .trivia-card-button {
+  /* .trivia-card-button {
     width: 21em;
-  }
+  } */
 }
 
 @media screen and (min-width: 1200px) {

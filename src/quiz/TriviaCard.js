@@ -20,7 +20,7 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
     setLoaded(true);
   }, [quizData]);
 
-  const haspickedAnswer = selectedAnswer !== null;
+  const hasPickedAnswer = selectedAnswer !== null;
 
   function onAnswerClick(e) {
     const userAnswer = e.target.textContent;
@@ -53,7 +53,7 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
             {quizData[questionIndex].allAnswers.map((answer) => {
               let answerButtonClasses = 'trivia-card-button';
 
-              if (haspickedAnswer) {
+              if (hasPickedAnswer) {
                 const pickedThisAnswer = answer === selectedAnswer;
                 const isThisCorrect =
                   answer === quizData[questionIndex].correctAnswer;
@@ -72,7 +72,7 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
                   <button
                     className={answerButtonClasses}
                     onClick={onAnswerClick}
-                    disabled={haspickedAnswer}
+                    disabled={hasPickedAnswer}
                   >
                     {he.decode(answer)}
                   </button>
@@ -84,7 +84,7 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
             <button 
               className="trivia-card-next-button" 
               onClick={onFinishClick}
-              disabled={!haspickedAnswer}
+              disabled={!hasPickedAnswer}
               >
               Finish quiz
               <FontAwesomeIcon icon={faArrowRight} className="fa-icon-arrow" />
@@ -93,7 +93,7 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
             <button
               className="trivia-card-next-button"
               onClick={onloadNextClick}
-              disabled={!haspickedAnswer}
+              disabled={!hasPickedAnswer}
             >
               Next
               <FontAwesomeIcon icon={faArrowRight} className="fa-icon-arrow" />
