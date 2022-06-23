@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from 'react';
 import { QuizContext } from './Contexts';
 import { motion } from 'framer-motion';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
 import '../quiz/QuizPage.css';
 import Stats from './Stats';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
 import Spinner from './Spinner';
+import Intro from './Intro';
 
 function QuizPage() {
   const { setScore } = useContext(QuizContext);
@@ -18,12 +17,9 @@ function QuizPage() {
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
   const [showGame, setShowGame] = useState(false);
-  const [spinner, setSpinner] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
-  console.log("loaded", loaded)
+  console.log(selectedAnswer)
 
 
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(
@@ -61,12 +57,10 @@ function QuizPage() {
 
   function startTheGame(e) {
     e.preventDefault();
-    setSpinner(true);
     setShowGame(true);
   }
 
   function restartGame() {
-    setLoaded(false);
     setIsGameOver(false);
     setDifficultyLevel('');
     setNumOfQuestions(0);
@@ -82,8 +76,8 @@ function QuizPage() {
   }
 
   function loadNextQuestion() {
-    setQuestionIndex(questionIndex + 1);
     setSelectedAnswer(null);
+    setQuestionIndex(questionIndex + 1);
   }
 
   function finishQuiz() {
@@ -95,6 +89,7 @@ function QuizPage() {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
 
     if (numOfQuestions !== 0 && difficultyLevel !== '') {
+      console.log('Fetching data...')
       setLoading(true)
       fetch(url)
         .then((response) => {
@@ -129,10 +124,9 @@ function QuizPage() {
             }
             return shuffledArray;
           }
-          setLoaded(true);
           setQuizData(decodedResults);
           setLoading(false)
-
+          console.log('...finished!')
         })
         .catch((err) => {
           console.log(err.message);
@@ -147,7 +141,6 @@ function QuizPage() {
     animate={{ opacity: 1 }}
     transition={{ delay: 1, duration: 1 }}
     >
-      {/* {loaded && showGame ? ( */}
       {showGame ? (
         <div>
           <Stats quizData={quizData} />
@@ -161,14 +154,7 @@ function QuizPage() {
         <EndScreen onRestartClick={restartGame} />
       ) : (
         <>
-          <div className="intro">
-            <h2>Welcome!</h2>
-            <p>Make your pick below and start the quiz.</p>
-            <p>
-              Good luck!
-              <FontAwesomeIcon icon={faMusic} className="fa-icon-music-notes" />
-            </p>
-          </div>
+          <Intro />
           <motion.form
             className="form-container"
             initial={{ opacity: 0 }}
