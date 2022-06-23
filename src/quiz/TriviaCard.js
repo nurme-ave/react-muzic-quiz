@@ -14,7 +14,6 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
   const [loaded, setLoaded] = useState(false);
 
   // console.log(loaded)
-  // console.log(quizData)
 
   useEffect(() => {
     setLoaded(true);
@@ -22,10 +21,12 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
 
   const hasPickedAnswer = selectedAnswer !== null;
 
+  
+
   function onAnswerClick(e) {
     const userAnswer = e.target.textContent;
     setSelectedAnswer(userAnswer);
-    const isUserCorrect = userAnswer === quizData[questionIndex].correctAnswer;
+    const isUserCorrect = userAnswer === he.decode(quizData[questionIndex].correctAnswer);
     onSelectedAnswer(isUserCorrect);
   }
 

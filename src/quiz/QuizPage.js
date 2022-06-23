@@ -19,9 +19,6 @@ function QuizPage() {
   const [showGame, setShowGame] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(loading)
-
-
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(
     (value) => value
   );
@@ -54,6 +51,10 @@ function QuizPage() {
     correctAnswer: '',
     allAnswers: [],
   });
+
+  console.log(quizData);
+  console.log(quizData.allAnswers);
+  console.log(quizData.incorrectAnswers);
 
   function startTheGame(e) {
     e.preventDefault();
@@ -89,7 +90,7 @@ function QuizPage() {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
 
     if (numOfQuestions !== 0 && difficultyLevel !== '') {
-      setLoading(true)
+      setLoading(true);
       fetch(url)
         .then((response) => {
           if (!response.ok) {
@@ -101,6 +102,7 @@ function QuizPage() {
         })
         .then((data) => {
           const decodedResults = data.results.map((item) => {
+            console.log(data)
             return {
               question: he.decode(item.question),
               correctAnswer: he.decode(item.correct_answer),
@@ -108,8 +110,10 @@ function QuizPage() {
                 he.decode(incorrect)
               ),
               allAnswers: shuffle([
-                ...item.incorrect_answers,
-                item.correct_answer,
+                ...item.incorrect_answers.map((incorrect) =>
+                  he.decode(incorrect)
+                ),
+                he.decode(item.correct_answer),
               ]),
             };
           });
@@ -124,7 +128,7 @@ function QuizPage() {
             return shuffledArray;
           }
           setQuizData(decodedResults);
-          setLoading(false)
+          setLoading(false);
         })
         .catch((err) => {
           console.log(err.message);
@@ -134,10 +138,10 @@ function QuizPage() {
 
   return (
     <motion.section
-    className="section-container"
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ delay: 1, duration: 1 }}
+      className="section-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 1, duration: 1 }}
     >
       {showGame ? (
         <div>
