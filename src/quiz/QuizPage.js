@@ -19,7 +19,7 @@ function QuizPage() {
   const [showGame, setShowGame] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  console.log(selectedAnswer)
+  console.log(loading)
 
 
   const hasUserMadeSelections = [difficultyLevel, numOfQuestions].every(
@@ -27,7 +27,7 @@ function QuizPage() {
   );
 
   let startButtonClasses = 'start-quiz-button';
-  if (!hasUserMadeSelections)
+  if (!hasUserMadeSelections || loading)
     startButtonClasses += ' trivia-card-button-disabled';
 
   const arrDifficultyLevels = ['Easy', 'Medium', 'Hard'];
@@ -89,7 +89,6 @@ function QuizPage() {
     const url = `https://opentdb.com/api.php?amount=${numOfQuestions}&category=12&difficulty=${difficultyLevel}&type=multiple`;
 
     if (numOfQuestions !== 0 && difficultyLevel !== '') {
-      console.log('Fetching data...')
       setLoading(true)
       fetch(url)
         .then((response) => {
@@ -126,7 +125,6 @@ function QuizPage() {
           }
           setQuizData(decodedResults);
           setLoading(false)
-          console.log('...finished!')
         })
         .catch((err) => {
           console.log(err.message);
@@ -186,7 +184,7 @@ function QuizPage() {
             </div>
             <button
               className={startButtonClasses}
-              disabled={!hasUserMadeSelections}
+              disabled={!hasUserMadeSelections || loading}
             >
               {loading ? <Spinner /> : 'Start!'}
             </button>
