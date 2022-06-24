@@ -25,7 +25,7 @@ function EndScreen({ onRestartClick }) {
         <div className="end-screen-stat">Final score:</div>
         <div className="end-screen-stat">{score}</div>
       </div>
-      <button className="trivia-card-next-button" onClick={onRestartClick}>
+      <button className="trivia-card-next-button play-again-button" onClick={onRestartClick}>
         Play again ?
       </button>
     </motion.div>
