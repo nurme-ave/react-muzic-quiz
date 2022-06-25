@@ -23,7 +23,6 @@ function App() {
       >
         <QuizPage />
       </QuizContext.Provider>
-      <Footer />
     </main>
   );
 }

@@ -8,6 +8,7 @@ import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
 import Spinner from './Spinner';
 import Header from '../header/Header';
+import Footer from '../footer/Footer';
 import Intro from './Intro';
 
 function QuizPage() {
@@ -157,6 +158,7 @@ function QuizPage() {
         <>
           <Header />
           <EndScreen onRestartClick={restartGame} />
+          <Footer />
         </>
       ) : (
         <>
@@ -198,6 +200,7 @@ function QuizPage() {
               {loading ? <Spinner /> : 'Start!'}
             </button>
           </motion.form>
+          <Footer />
         </>
       )}
     </motion.section>
