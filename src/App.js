@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { QuizContext } from './quiz/Contexts';
 import './index.css';
-import Header from './header/Header';
+// import Header from './header/Header';
 import QuizPage from './quiz/QuizPage';
 import Footer from './footer/Footer';
 
@@ -12,7 +12,6 @@ function App() {
 
   return (
     <main className="main-container">
-      {<Header />}
       <QuizContext.Provider
         value={{
           questionIndex,

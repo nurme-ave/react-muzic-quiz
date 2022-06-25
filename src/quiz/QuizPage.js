@@ -7,6 +7,7 @@ import Stats from './Stats';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
 import Spinner from './Spinner';
+import Header from '../header/Header';
 import Intro from './Intro';
 
 function QuizPage() {
@@ -156,6 +157,7 @@ function QuizPage() {
         <EndScreen onRestartClick={restartGame} />
       ) : (
         <>
+          <Header />
           <Intro />
           <motion.form
             className="form-container"
