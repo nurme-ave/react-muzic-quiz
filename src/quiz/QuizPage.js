@@ -154,7 +154,10 @@ function QuizPage() {
           />
         </div>
       ) : isGameOver ? (
-        <EndScreen onRestartClick={restartGame} />
+        <>
+          <Header />
+          <EndScreen onRestartClick={restartGame} />
+        </>
       ) : (
         <>
           <Header />

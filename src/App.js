@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { QuizContext } from './quiz/Contexts';
 import './index.css';
-// import Header from './header/Header';
 import QuizPage from './quiz/QuizPage';
 import Footer from './footer/Footer';
 
