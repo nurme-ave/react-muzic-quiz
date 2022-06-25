@@ -12,7 +12,7 @@ function App() {
 
   return (
     <main className="main-container">
-      <Header />
+      {<Header />}
       <QuizContext.Provider
         value={{
           questionIndex,
