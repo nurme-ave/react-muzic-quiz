@@ -16,7 +16,7 @@ body {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   gap: 1em;
   padding: 2em 0;
   background-image: url('https://source.unsplash.com/YrtFlrLo2DQ');
