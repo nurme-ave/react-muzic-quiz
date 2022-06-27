@@ -71,13 +71,13 @@
 .trivia-card-button-disabled {
   border: 1px solid #000;
   background: #c3c3d8;
-  cursor: auto;
+  cursor: default;
 }
 
 .trivia-card-button-disabled:hover {
   border: 1px solid darkgrey;
   background: #c3c3d8;
-  cursor: auto;
+  cursor: default;
 }
 
 .trivia-card-button.trivia-card-button-correct {
