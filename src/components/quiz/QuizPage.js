@@ -152,7 +152,7 @@ function QuizPage() {
       ) : isGameOver ? (
         <>
           <Header />
-          <EndScreen onRestartClick={restartGame} />
+          <EndScreen onRestartClick={restartGame} numOfQuestions={numOfQuestions}/>
           <Footer />
         </>
       ) : (
