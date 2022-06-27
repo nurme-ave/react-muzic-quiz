@@ -100,7 +100,6 @@ function QuizPage() {
         })
         .then((data) => {
           const decodedResults = data.results.map((item) => {
-            console.log(data);
             return {
               question: he.decode(item.question),
               correctAnswer: he.decode(item.correct_answer),
