@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { QuizContext } from './quiz/Contexts';
+import { QuizContext } from './components/quiz/Contexts';
+import QuizPage from './components/quiz/QuizPage';
 import './index.css';
-import QuizPage from './quiz/QuizPage';
-import Footer from './footer/Footer';
 
 function App() {
   const [questionIndex, setQuestionIndex] = useState(0);

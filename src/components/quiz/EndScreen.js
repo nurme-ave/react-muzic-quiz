@@ -3,7 +3,7 @@ import { QuizContext } from './Contexts';
 import { motion } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMedal } from '@fortawesome/free-solid-svg-icons';
-import '../quiz/EndScreen.css';
+import './EndScreen.css';
 
 function EndScreen({ onRestartClick }) {
   const { score } = useContext(QuizContext);
@@ -25,7 +25,10 @@ function EndScreen({ onRestartClick }) {
         <div className="end-screen-stat">Final score:</div>
         <div className="end-screen-stat">{score}</div>
       </div>
-      <button className="trivia-card-next-button play-again-button" onClick={onRestartClick}>
+      <button
+        className="trivia-card-next-button play-again-button"
+        onClick={onRestartClick}
+      >
         Play again ?
       </button>
     </motion.div>

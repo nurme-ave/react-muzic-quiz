@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: .75em;
+  gap: 0.75em;
 }
 
 .section-container > *,
@@ -34,7 +34,7 @@
   padding: 2.5em 1em;
   width: 100%;
   color: #fff;
-  border-top: 2px solid #D1468D;
+  border-top: 2px solid #d1468d;
 }
 
 .select-container {
@@ -42,7 +42,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: .75em;
+  gap: 0.75em;
   width: 100%;
   font-weight: 600;
 }
@@ -50,8 +50,8 @@
 select {
   font-family: 'Poppins', sans-serif;
   width: 10em;
-  padding: .75em 1em;
-  border-radius: .5em;
+  padding: 0.75em 1em;
+  border-radius: 0.5em;
   outline: 0;
 }
 
@@ -64,13 +64,12 @@ select {
   font-weight: 600;
   text-align: center;
   text-transform: uppercase;
-  letter-spacing: .05em;
-  padding: 1em .5em;
-  border-radius: .5em;
+  letter-spacing: 0.05em;
+  padding: 1em 0.5em;
+  border-radius: 0.5em;
   width: 8.5em;
-  margin-top: .5em;
+  margin-top: 0.5em;
   border: 1px solid #fff;
-  color: #D1468D;
   color: #d6227f;
   background-color: #fff;
   cursor: pointer;
@@ -78,5 +77,5 @@ select {
 
 .start-quiz-button:hover {
   color: #fff;
-  background-color: #D1468D;
+  background-color: #d1468d;
 }

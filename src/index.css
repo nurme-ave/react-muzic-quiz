@@ -28,7 +28,6 @@ body {
   color: #fff;
 }
 
-
 /* MEDIA QUERIES */
 @media screen and (min-width: 1200px) {
   .main-container {
@@ -37,8 +36,3 @@ body {
     background-position: bottom right;
   }
 }
-
-/*
-  #59E391 - green
-  #F8BCBC - pink
-*/

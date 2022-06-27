@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import '../header/Header.css';
+import './Header.css';
 
 function Header() {
   return (

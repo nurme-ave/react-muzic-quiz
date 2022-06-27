@@ -2,19 +2,19 @@ import { useState, useEffect, useContext } from 'react';
 import { QuizContext } from './Contexts';
 import { motion } from 'framer-motion';
 import he from 'he';
-import '../quiz/QuizPage.css';
+import './QuizPage.css';
+import Header from '../header/Header';
+import Intro from './Intro';
+import Spinner from './Spinner';
 import Stats from './Stats';
 import TriviaCard from './TriviaCard';
 import EndScreen from './EndScreen';
-import Spinner from './Spinner';
-import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import Intro from './Intro';
 
 function QuizPage() {
   const { setScore } = useContext(QuizContext);
   const { questionIndex, setQuestionIndex } = useContext(QuizContext);
-  const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
+  const { setSelectedAnswer } = useContext(QuizContext);
   const [isGameOver, setIsGameOver] = useState(false);
   const [difficultyLevel, setDifficultyLevel] = useState('');
   const [numOfQuestions, setNumOfQuestions] = useState(0);
@@ -53,10 +53,6 @@ function QuizPage() {
     correctAnswer: '',
     allAnswers: [],
   });
-
-  console.log(quizData);
-  console.log(quizData.allAnswers);
-  console.log(quizData.incorrectAnswers);
 
   function startTheGame(e) {
     e.preventDefault();
@@ -104,7 +100,7 @@ function QuizPage() {
         })
         .then((data) => {
           const decodedResults = data.results.map((item) => {
-            console.log(data)
+            console.log(data);
             return {
               question: he.decode(item.question),
               correctAnswer: he.decode(item.correct_answer),

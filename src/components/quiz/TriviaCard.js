@@ -1,32 +1,23 @@
-import { useState, useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { QuizContext } from './Contexts';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import he from 'he';
-import '../quiz/TriviaCard.css';
-import Spinner from './Spinner';
+import './TriviaCard.css';
 
 function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
   const { questionIndex } = useContext(QuizContext);
   const { selectedAnswer, setSelectedAnswer } = useContext(QuizContext);
   const { score, setScore } = useContext(QuizContext);
-  const [loaded, setLoaded] = useState(false);
-
-  // console.log(loaded)
-
-  useEffect(() => {
-    setLoaded(true);
-  }, [quizData]);
 
   const hasPickedAnswer = selectedAnswer !== null;
-
-  
 
   function onAnswerClick(e) {
     const userAnswer = e.target.textContent;
     setSelectedAnswer(userAnswer);
-    const isUserCorrect = userAnswer === he.decode(quizData[questionIndex].correctAnswer);
+    const isUserCorrect =
+      userAnswer === he.decode(quizData[questionIndex].correctAnswer);
     onSelectedAnswer(isUserCorrect);
   }
 
@@ -82,11 +73,11 @@ function TriviaCard({ quizData, onloadNextClick, onFinishClick }) {
             })}
           </ul>
           {questionIndex >= quizData.length - 1 ? (
-            <button 
-              className="trivia-card-next-button" 
+            <button
+              className="trivia-card-next-button"
               onClick={onFinishClick}
               disabled={!hasPickedAnswer}
-              >
+            >
               Finish quiz
               <FontAwesomeIcon icon={faArrowRight} className="fa-icon-arrow" />
             </button>
