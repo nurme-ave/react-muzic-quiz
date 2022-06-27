@@ -31,7 +31,7 @@ body {
 /* MEDIA QUERIES */
 @media screen and (min-width: 768px) {
   .main-container {
-    min-height: 100vh;
+    height: auto;
   }
 }
 
