@@ -8,6 +8,7 @@ html,
 body {
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
+  background-color: #0d051f;
 }
 
 .main-container {
