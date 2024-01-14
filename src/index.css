@@ -20,8 +20,8 @@ body {
   height: 100vh;
   gap: 1em;
   padding: 2em 0;
-  background-image: url('https://source.unsplash.com/YrtFlrLo2DQ');
-  background-image: url('./images/muzic_quiz_bkg.png');
+  /* background-image: url('https://source.unsplash.com/YrtFlrLo2DQ'); */
+  background-image: url('./images/photo-dj.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
